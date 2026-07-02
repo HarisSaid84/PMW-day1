@@ -38,13 +38,12 @@ I'm also keeping monocular depth estimation on my list as a lighter-weight fallb
 
 ## Experiment Evidence — What's Next This Week
 
-I haven't run any code yet — this post is documenting research and reading, not a working pipeline. So instead of screenshots, here's the honest plan for this week:
+This post is documenting research and reading, not a working pipeline. So instead of screenshots, here's the honest plan for this week:
 
 - **Step 1:** Set up COLMAP locally (or on Colab, if my machine's GPU turns out to be a bottleneck) and run it on a short phone video of a local landmark, just to get a baseline sparse point cloud and camera poses.
 - **Step 2:** Feed that COLMAP output into an open-source 3D Gaussian Splatting implementation and see what a first, rough reconstruction looks like.
 - **Step 3:** Document everything — terminal output, run times, and rendered screenshots — in a follow-up post, including what broke and what I had to debug.
 
-I'll update this post (or write a part two) once I have real output to show, good or bad.
 
 ## Closing Thoughts
 
