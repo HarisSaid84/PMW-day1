@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haris Said — Portfolio</title>
+<meta name="description" content="Haris Said — Computer Science undergraduate at FAST-NUCES Islamabad, focused on data structures, algorithms, and applied AI.">
+<meta name="theme-color" content="#0F1512">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1512;
+    --surface: #161F1A;
+    --surface-2: #1D2721;
+    --line: #263229;
+    --text: #E9EDE7;
+    --muted: #8FA091;
+    --amber: #E8A33D;
+    --teal: #5FB3A3;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --nav-w: 240px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--amber); color:#0F1512; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- Layout shell ---------- */
+  .shell{
+    display:grid;
+    grid-template-columns: var(--nav-w) 1fr;
+    min-height:100vh;
+  }
+
+  /* ---------- Sidebar / directory nav ---------- */
+  .sidebar{
+    position:sticky;
+    top:0;
+    height:100vh;
+    border-right:1px solid var(--line);
+    background:var(--surface);
+    padding:32px 24px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+
+  .brand{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:36px;
+  }
+  .brand span{ color:var(--amber); }
+
+  .dirlist{ list-style:none; font-family:var(--mono); font-size:14px; }
+  .dirlist li{ margin-bottom:6px; }
+  .dirlist a{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 10px;
+    border-radius:4px;
+    color:var(--muted);
+    transition:background .15s ease, color .15s ease;
+  }
+  .dirlist a:hover, .dirlist a:focus-visible{
+    background:var(--surface-2);
+    color:var(--text);
+    outline:none;
+  }
+  .dirlist a:focus-visible{ box-shadow:0 0 0 2px var(--amber); }
+  .dirlist .tick{ color:var(--teal); }
+
+  .sidebar-foot{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    padding-top:16px;
+  }
+  .status-dot{
+    display:inline-block;
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--teal);
+    margin-right:6px;
+    box-shadow:0 0 6px var(--teal);
+  }
+
+  /* mobile nav toggle */
+  .nav-toggle{ display:none; }
+
+  /* ---------- Main content ---------- */
+  main{ padding: 64px 56px 100px; max-width:920px; }
+
+  section{ margin-bottom:110px; scroll-margin-top:32px; }
+  section:last-of-type{ margin-bottom:60px; }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.08em;
+    color:var(--amber);
+    text-transform:uppercase;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{ content:'//'; color:var(--muted); }
+
+  h1,h2,h3{ font-family:var(--mono); font-weight:700; letter-spacing:-0.01em; }
+  .section-title{ font-size:28px; margin-bottom:28px; }
+
+  /* ---------- Hero (photo + terminal) ---------- */
+  .hero{ margin-bottom:120px; }
+  .hero-top{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    margin-bottom:36px;
+    flex-wrap:wrap;
+  }
+  .hero-photo{
+    flex:0 0 auto;
+    width:132px;
+    height:132px;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 16px 36px rgba(0,0,0,.4);
+    background:var(--surface);
+  }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-heading .eyebrow{ margin-bottom:8px; }
+  .hero-heading h1{
+    font-size:clamp(30px, 4.2vw, 42px);
+    line-height:1.1;
+    margin-bottom:8px;
+  }
+  .hero-heading .role{
+    font-family:var(--mono);
+    color:var(--muted);
+    font-size:14px;
+    letter-spacing:.01em;
+  }
+
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+  .terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 16px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+  }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .dot.red{ background:#e5645a; }
+  .dot.yellow{ background:#e8c33d; }
+  .dot.green{ background:#5fb36b; }
+  .terminal-path{ margin-left:8px; }
+
+  .terminal-body{ padding:32px 28px 40px; font-family:var(--mono); }
+  .terminal-body .prompt{ color:var(--teal); }
+  .type-line{
+    font-size:clamp(20px, 3.4vw, 28px);
+    color:var(--text);
+    font-weight:700;
+    min-height:1.4em;
+    border-right:2px solid var(--amber);
+    white-space:nowrap;
+    overflow:hidden;
+    animation: blink .9s step-end infinite;
+  }
+  @keyframes blink{ 50%{ border-color:transparent; } }
+
+  .hero-sub{
+    margin-top:22px;
+    color:var(--muted);
+    font-family:var(--sans);
+    font-size:16px;
+    max-width:56ch;
+  }
+  .hero-tags{ margin-top:24px; display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--teal);
+    border:1px solid var(--line);
+    background:var(--surface-2);
+    padding:5px 10px;
+    border-radius:5px;
+  }
+
+  /* ---------- Interests ---------- */
+  .interest-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .interest-card{
+    background:var(--surface);
+    padding:24px;
+  }
+  .interest-card h3{ font-size:15px; margin-bottom:8px; color:var(--amber); }
+  .interest-card p{ color:var(--muted); font-size:14px; }
+
+  /* ---------- Skills ---------- */
+  .skills-log{
+    font-family:var(--mono);
+    font-size:14px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:20px 24px;
+  }
+  .skill-row{
+    display:grid;
+    grid-template-columns: 160px 1fr 42px;
+    align-items:center;
+    gap:16px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .skill-row:last-child{ border-bottom:none; }
+  .skill-name{ color:var(--text); }
+  .skill-track{
+    height:6px;
+    background:var(--surface-2);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .skill-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--teal), var(--amber));
+    border-radius:3px;
+  }
+  .skill-pct{ color:var(--muted); text-align:right; }
+
+  /* ---------- Projects ---------- */
+  .project-list{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .project{
+    background:var(--surface);
+    padding:26px 28px;
+    display:grid;
+    grid-template-columns: 90px 1fr;
+    gap:20px;
+    transition:background .15s ease;
+  }
+  .project:hover{ background:var(--surface-2); }
+  .project-idx{ font-family:var(--mono); color:var(--muted); font-size:13px; }
+  .project h3{ font-size:17px; margin-bottom:6px; }
+  .project p{ color:var(--muted); font-size:14px; margin-bottom:12px; max-width:60ch; }
+  .project-links{ display:flex; gap:14px; font-family:var(--mono); font-size:13px; }
+  .project-links a{ color:var(--teal); border-bottom:1px solid transparent; }
+  .project-links a:hover, .project-links a:focus-visible{ border-color:var(--teal); outline:none; }
+  .project-stack{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+  .project-stack span{
+    font-family:var(--mono); font-size:11px; color:var(--muted);
+    border:1px solid var(--line); padding:2px 7px; border-radius:4px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-box{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:36px 32px;
+  }
+  .contact-box p{ color:var(--muted); margin-bottom:24px; max-width:52ch; }
+  .contact-links{ display:flex; flex-wrap:wrap; gap:14px; }
+  .contact-links a{
+    font-family:var(--mono);
+    font-size:14px;
+    padding:10px 16px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    color:var(--text);
+    display:flex; align-items:center; gap:8px;
+    transition:border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+  .contact-links a:hover, .contact-links a:focus-visible{
+    border-color:var(--amber);
+    color:var(--amber);
+    transform:translateY(-1px);
+    outline:none;
+  }
+
+  footer{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    padding:24px 56px 40px;
+    border-top:1px solid var(--line);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .shell{ grid-template-columns:1fr; }
+    .sidebar{
+      position:sticky;
+      height:auto;
+      flex-direction:row;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 20px;
+      z-index:10;
+    }
+    .sidebar-foot{ display:none; }
+    .dirlist{ display:none; }
+    .nav-toggle{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      background:var(--surface-2);
+      border:1px solid var(--line);
+      border-radius:6px;
+      padding:8px 12px;
+    }
+    .sidebar.open .dirlist{
+      display:flex;
+      flex-direction:column;
+      position:absolute;
+      top:56px; left:0; right:0;
+      background:var(--surface);
+      border-bottom:1px solid var(--line);
+      padding:12px 20px 20px;
+      gap:2px;
+    }
+    main{ padding:40px 22px 80px; }
+    section{ margin-bottom:80px; }
+    .hero-top{ flex-direction:column; align-items:flex-start; gap:18px; }
+    .hero-photo{ width:104px; height:104px; }
+    .project{ grid-template-columns:1fr; }
+    .skill-row{ grid-template-columns: 110px 1fr 36px; }
+    footer{ padding:24px 22px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar" aria-label="Section navigation">
+    <div>
+      <div class="brand">haris<span>@</span>portfolio<span>:~$</span></div>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="dirlist">☰ menu</button>
+      <ul class="dirlist" id="dirlist">
+        <li><a href="#intro"><span class="tick">✓</span> intro.md</a></li>
+        <li><a href="#interests"><span class="tick">✓</span> interests.md</a></li>
+        <li><a href="#skills"><span class="tick">✓</span> skills.json</a></li>
+        <li><a href="#education"><span class="tick">✓</span> education.md</a></li>
+        <li><a href="#projects"><span class="tick">✓</span> projects/</a></li>
+        <li><a href="#leadership"><span class="tick">✓</span> leadership/</a></li>
+        <li><a href="#contact"><span class="tick">✓</span> contact.sh</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-foot">
+      <span class="status-dot"></span>available for opportunities
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="intro">
+      <div class="hero-top">
+        <div class="hero-photo">
+          <img src="profile.jpg" alt="Portrait of Haris Said">
+        </div>
+        <div class="hero-heading">
+          <div class="eyebrow">intro.md</div>
+          <h1>Haris Said</h1>
+          <p class="role">Computer Science Undergraduate · FAST-NUCES, Islamabad</p>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="terminal-path">haris@portfolio — zsh</span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">$</span> cat about.txt</div>
+          <div class="type-line" id="typeLine"></div>
+          <p class="hero-sub">
+            I'm a Computer Science undergraduate at FAST-NUCES Islamabad, drawn to problems
+            that reward careful structure — clean data structures and algorithms first, then
+            AI and machine learning layered on top. Recent work spans a from-scratch railway
+            management system and an AI-driven city simulation.
+          </p>
+          <div class="hero-tags">
+            <span class="tag">Artificial Intelligence</span>
+            <span class="tag">Data Structures & Algorithms</span>
+            <span class="tag">C++ / Python</span>
+            <span class="tag">FAST-NUCES</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interests -->
+    <section id="interests">
+      <div class="eyebrow">interests.md</div>
+      <h2 class="section-title">Areas of interest</h2>
+      <div class="interest-grid">
+        <div class="interest-card">
+          <h3>Artificial Intelligence</h3>
+          <p>Applying constraint satisfaction, graph search, and classical AI techniques to real planning and optimisation problems.</p>
+        </div>
+        <div class="interest-card">
+          <h3>Machine Learning</h3>
+          <p>Using clustering and classification models to turn raw, messy data into predictions that actually inform decisions.</p>
+        </div>
+        <div class="interest-card">
+          <h3>Data Structures & Algorithms</h3>
+          <p>Designing systems from first principles — building custom data management logic instead of leaning on standard libraries.</p>
+        </div>
+        <div class="interest-card">
+          <h3>Software Design</h3>
+          <p>Coordinating multi-module architectures where every part — booking, routing, logging — stays structurally sound together.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="eyebrow">skills.json</div>
+      <h2 class="section-title">Technical skills</h2>
+      <div class="skills-log">
+        <div class="skill-row">
+          <span class="skill-name">C++</span>
+          <span class="skill-track"><span class="skill-fill" style="width:85%"></span></span>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Python</span>
+          <span class="skill-track"><span class="skill-fill" style="width:80%"></span></span>
+          <span class="skill-pct">80%</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Data Structures</span>
+          <span class="skill-track"><span class="skill-fill" style="width:85%"></span></span>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">AI / ML</span>
+          <span class="skill-track"><span class="skill-fill" style="width:75%"></span></span>
+          <span class="skill-pct">75%</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Data Interpretation</span>
+          <span class="skill-track"><span class="skill-fill" style="width:78%"></span></span>
+          <span class="skill-pct">78%</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">MS Office / Canva</span>
+          <span class="skill-track"><span class="skill-fill" style="width:80%"></span></span>
+          <span class="skill-pct">80%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education & Awards -->
+    <section id="education">
+      <div class="eyebrow">education.md</div>
+      <h2 class="section-title">Education & awards</h2>
+      <div class="interest-grid">
+        <div class="interest-card">
+          <h3>BSc Computer Science</h3>
+          <p>National University of Computer and Emerging Sciences (FAST-NUCES) · Aug 2024 – Present</p>
+        </div>
+        <div class="interest-card">
+          <h3>Key coursework</h3>
+          <p>Data Structures, Artificial Intelligence, Software Design & Analysis, Probability & Statistics, OOP.</p>
+        </div>
+        <div class="interest-card">
+          <h3>Gold Medalist — O Levels</h3>
+          <p>4A* and 4A across O Level subjects.</p>
+        </div>
+        <div class="interest-card">
+          <h3>100% Merit Scholarship — A Levels</h3>
+          <p>2A and 2B across A Level subjects.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="eyebrow">projects/</div>
+      <h2 class="section-title">Selected work</h2>
+      <div class="project-list">
+        <div class="project">
+          <div class="project-idx">01</div>
+          <div>
+            <h3>The Iron Nexus — Railway Management System</h3>
+            <p>A real-time railway application built entirely from scratch in C++, with no standard libraries — covering booking, routing, and logging as independently coordinated modules. Presented to an evaluating panel via live demo.</p>
+            <div class="project-stack"><span>C++</span><span>Data Structures</span><span>Semester Project</span></div>
+          </div>
+        </div>
+        <div class="project">
+          <div class="project-idx">02</div>
+          <div>
+            <h3>CityMind — Urban Intelligence System</h3>
+            <p>An AI-powered simulation for optimising city infrastructure, applying constraint satisfaction and graph search alongside clustering and classification models trained on synthetic crime data to predict risk levels.</p>
+            <div class="project-stack"><span>Python</span><span>Artificial Intelligence</span><span>Machine Learning</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section id="leadership">
+      <div class="eyebrow">leadership/</div>
+      <h2 class="section-title">Leadership & volunteering</h2>
+      <div class="interest-grid">
+        <div class="interest-card">
+          <h3>FAST Computing Society — Operations</h3>
+          <p>Ran logistics for 3 events reaching 200+ attendees, and brought in 5 new vendors, cutting average event costs by 35%.</p>
+        </div>
+        <div class="interest-card">
+          <h3>Little Steps, Strong Foundations</h3>
+          <p>Designed and delivered weekly lesson plans for 20+ students over 8 weeks at Anwar Educational School, Tarlai.</p>
+        </div>
+        <div class="interest-card">
+          <h3>Founder — Parwaz Sports Fest</h3>
+          <p>Built a Palestine relief fundraiser from the ground up with 10 volunteers, raising PKR 500,000+ for 100+ attendees.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="eyebrow">contact.sh</div>
+      <h2 class="section-title">Get in touch</h2>
+      <div class="contact-box">
+        <p>Open to internships and collaborations in AI, software engineering, and data-driven systems. The fastest way to reach me is email.</p>
+        <div class="contact-links">
+          <a href="mailto:harissaid48@gmail.com">✉ harissaid48@gmail.com</a>
+          <a href="tel:+923215730645">☎ 0321-5730645</a>
+          <a href="https://www.linkedin.com/in/harissaid/" target="_blank" rel="noopener">in linkedin.com/in/harissaid</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  Haris Said · Built with plain HTML/CSS/JS · no frameworks harmed in the making of this page
+</footer>
+
+<script>
+  // Typing effect for hero line
+  (function(){
+    var el = document.getElementById('typeLine');
+    var text = "Structured thinking, applied to AI systems.";
+    var i = 0;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced){ el.textContent = text; return; }
+    function tick(){
+      if (i <= text.length){
+        el.textContent = text.slice(0, i);
+        i++;
+        setTimeout(tick, 32);
+      }
+    }
+    tick();
+  })();
+
+  // Mobile nav toggle
+  (function(){
+    var btn = document.getElementById('navToggle');
+    var sidebar = document.getElementById('sidebar');
+    if (!btn) return;
+    btn.addEventListener('click', function(){
+      var open = sidebar.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.querySelectorAll('#dirlist a').forEach(function(a){
+      a.addEventListener('click', function(){
+        sidebar.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
